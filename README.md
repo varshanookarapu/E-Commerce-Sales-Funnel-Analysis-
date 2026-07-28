@@ -154,6 +154,7 @@ ROUND(AVG(TIMESTAMP_DIFF(purchase_time,page_views_time,MINUTE)),2) as avg_total_
 
 FROM user_journey;
 ```
+<img width="950" height="145" alt="image" src="https://github.com/user-attachments/assets/c8fdac19-780a-4ab6-b590-8842de61b697" />
 
 ---
 
@@ -178,3 +179,5 @@ WHERE event_date >= (SELECT MIN(event_date) FROM `proven-entropy-339205.User_Eve
 
 SELECT *,ROUND(total_revenue/total_orders,2)  as avg_order_value, ROUND(total_revenue/total_purchasers,2) as total_revenue_per_purchaser FROM revenue_funnel
 ```
+<img width="1143" height="156" alt="image" src="https://github.com/user-attachments/assets/af054226-07af-408f-9624-c61b4becca72" />
+
