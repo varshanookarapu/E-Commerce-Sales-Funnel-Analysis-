@@ -123,6 +123,8 @@ ROUND(purchases*100/carts,2) as cart_to_purchase_conversion_rate,
 ROUND(purchases*100/page_views,2) as page_view_to_purchase_conversion_rate
  FROM traffic_source_funnel;
 ```
+<img width="1485" height="222" alt="image" src="https://github.com/user-attachments/assets/85ed5ae0-c199-417e-bae5-5f6880e8029c" />
+
 
 ---
 **4.Customer Journey**
