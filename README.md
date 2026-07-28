@@ -26,3 +26,9 @@ I've uploaded the user_events.csv file to this repository. It is an e-commerce d
 
 The structure of the dataset is as follows:
 <img width="1405" height="456" alt="image" src="https://github.com/user-attachments/assets/2c1ab22f-3c69-4164-8011-ec3b40d029af" />
+
+## Tools
+
+Google BigQuery
+SQL
+Github
