@@ -99,6 +99,7 @@ Answering these questions can help identify friction points in the user journey 
 ---
 
 **3.Traffic Source Analysis**
+From this query, I am trying to determine which traffic source resulted in the highest number of user purchases and drove the most conversions.
 
 ```sql
 WITH traffic_source_funnel AS 
@@ -124,6 +125,18 @@ ROUND(purchases*100/page_views,2) as page_view_to_purchase_conversion_rate
  FROM traffic_source_funnel;
 ```
 <img width="1485" height="222" alt="image" src="https://github.com/user-attachments/assets/85ed5ae0-c199-417e-bae5-5f6880e8029c" />
+
+### Source Funnel Analysis Insights
+
+* **Organic traffic** generates the highest number of page views (**1,765**), but its conversion rate is relatively low at **16.60%** compared to email and paid ads. This suggests that while organic search is effective at attracting visitors, many users may have lower purchase intent and are primarily browsing or researching products.
+
+* **Email traffic** has the highest conversion rate (**33.71%**) despite generating the fewest page views (**445**). This indicates that users arriving through email are more likely to convert, likely because they are already familiar with the brand or have previously shown interest in its products.
+
+* **Paid ads** also perform well, with a **20.79%** conversion rate. This suggests that paid advertising campaigns are successfully attracting users with stronger purchase intent.
+
+* **Social traffic** has the lowest conversion rate (**6.89%**) despite generating a relatively high number of page views (**1,277**). This may indicate opportunities to improve audience targeting, content strategy, or the post-click user experience.
+
+* **Overall, email is the most effective channel for driving conversions**, while **organic** and **social** channels generate higher traffic volumes but have lower conversion efficiency. Optimizing the user experience and marketing strategy for these channels could help improve overall conversion rates.
 
 
 ---
