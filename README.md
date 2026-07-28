@@ -35,7 +35,7 @@ Github
 
 ## Analysis
 
-**1.Funnel Analysis **
+**1.Funnel Analysis**
 
 I'm trying to identify the number of users at each event type by creating a funnel analysis query. The goal is to determine how many users progress through each stage of the funnel. For this analysis, I'm only considering data from the first 30 days to calculate the number of users at each stage of the funnel.
 
@@ -95,3 +95,84 @@ To investigate this drop-off, we can explore questions such as:
 * Were there any issues with payment or shipping that caused users to abandon their purchases?
 
 Answering these questions can help identify friction points in the user journey and reveal opportunities to improve the overall conversion rate.
+
+---
+
+**3.Traffic Source Analysis**
+
+```sql
+WITH traffic_source_funnel AS 
+(
+
+SELECT 
+
+traffic_source,
+
+COUNT(DISTINCT CASE WHEN event_type ='page_view'   THEN user_id  END)  as  page_views,
+COUNT(DISTINCT CASE WHEN event_type ='add_to_cart' THEN user_id  END)  as  carts,
+COUNT(DISTINCT CASE WHEN event_type ='purchase' THEN user_id  END)  as  purchases
+FROM `proven-entropy-339205.User_Events.user_events` 
+WHERE event_date >= (SELECT MIN(event_date) FROM `proven-entropy-339205.User_Events.user_events`)  AND event_date <= TIMESTAMP(DATE_ADD((SELECT MIN(event_date) FROM `proven-entropy-339205.User_Events.user_events`),INTERVAL 30 DAY ))
+GROUP BY traffic_source
+
+)
+
+SELECT *,
+ROUND(carts*100/page_views,2) as cart_conversion_rate,
+ROUND(purchases*100/carts,2) as cart_to_purchase_conversion_rate,
+ROUND(purchases*100/page_views,2) as page_view_to_purchase_conversion_rate
+ FROM traffic_source_funnel;
+```
+
+---
+**4.Customer Journey**
+
+```sql
+WITH user_journey AS 
+(
+
+SELECT user_id,
+
+MIN(DISTINCT CASE WHEN event_type ='page_view'   THEN event_date  END)  as  page_views_time,
+MIN(DISTINCT CASE WHEN event_type ='add_to_cart' THEN event_date  END)  as  cart_time,
+MIN(DISTINCT CASE WHEN event_type ='purchase' THEN event_date  END)  as  purchase_time
+
+FROM `proven-entropy-339205.User_Events.user_events` 
+WHERE event_date >= (SELECT MIN(event_date) FROM `proven-entropy-339205.User_Events.user_events`)  AND event_date <= TIMESTAMP(DATE_ADD((SELECT MIN(event_date) FROM `proven-entropy-339205.User_Events.user_events`),INTERVAL 30 DAY ))
+
+GROUP BY user_id
+HAVING MIN(DISTINCT CASE WHEN event_type ='purchase' THEN event_date  END) IS NOT NULL
+
+)
+
+SELECT COUNT(*) as converted_users , 
+ROUND(AVG(TIMESTAMP_DIFF(cart_time,page_views_time,MINUTE)),2) as avg_view_to_cart_minutes,
+ROUND(AVG(TIMESTAMP_DIFF(purchase_time,cart_time,MINUTE)),2) as avg_cart_to_purchase_minutes,
+ROUND(AVG(TIMESTAMP_DIFF(purchase_time,page_views_time,MINUTE)),2) as avg_total_journey_minutes,
+
+FROM user_journey;
+```
+
+---
+
+**5.Revenue Analysis**
+
+```sql
+WITH revenue_funnel AS 
+( 
+SELECT 
+COUNT(DISTINCT CASE WHEN event_type ='page_view'THEN user_id  END)  as  total_visitors,
+COUNT(DISTINCT CASE WHEN event_type ='purchase' THEN user_id  END)  as  total_purchasers,
+COUNT(CASE WHEN event_type ='purchase' THEN 1 END) as total_orders,
+SUM(CASE WHEN event_type ='purchase' THEN amount END) as total_revenue
+
+
+
+FROM `proven-entropy-339205.User_Events.user_events` 
+WHERE event_date >= (SELECT MIN(event_date) FROM `proven-entropy-339205.User_Events.user_events`)  AND event_date <= TIMESTAMP(DATE_ADD((SELECT MIN(event_date) FROM `proven-entropy-339205.User_Events.user_events`),INTERVAL 30 DAY ))
+
+
+)
+
+SELECT *,ROUND(total_revenue/total_orders,2)  as avg_order_value, ROUND(total_revenue/total_purchasers,2) as total_revenue_per_purchaser FROM revenue_funnel
+```
