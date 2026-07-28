@@ -19,3 +19,10 @@ In this project I tried to answer the following questions
 4.How long does it take customers to complete a purchase?
 
 5.What is the average order value and revenue per customer?
+
+## Dataset 
+
+I've uploaded the user_events.csv file to this repository. It is an e-commerce dataset containing 9,381 rows of user event data, including page views, add-to-cart actions, checkout events, payment information, purchases, traffic sources (such as organic, email, and paid ads), timestamps, and user IDs.
+
+The structure of the dataset is as follows:
+<img width="1405" height="456" alt="image" src="https://github.com/user-attachments/assets/2c1ab22f-3c69-4164-8011-ec3b40d029af" />
