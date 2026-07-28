@@ -170,6 +170,12 @@ FROM user_journey;
 <img width="950" height="145" alt="image" src="https://github.com/user-attachments/assets/c8fdac19-780a-4ab6-b590-8842de61b697" />
 
 ---
+**Insights**
+* The insight gained from this query is that, on average, the **704 users** who completed a purchase spent approximately **24.76 minutes** progressing through the funnel stages, from viewing a page to completing a purchase.
+
+* On average, users took **11.25 minutes** to add a product to their cart after viewing a page. After adding a product to the cart, users spent an additional **13.51 minutes** completing the purchase process.
+
+* This indicates that a significant portion of the user journey time is spent between adding items to the cart and completing the purchase, which may highlight potential opportunities to optimize the checkout experience and reduce purchase friction.
 
 **5.Revenue Analysis**
 
