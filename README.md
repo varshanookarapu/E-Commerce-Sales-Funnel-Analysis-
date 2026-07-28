@@ -29,6 +29,8 @@ The structure of the dataset is as follows:
 
 ## Tools
 
-Google BigQuery
-SQL
+Google BigQuery |
+SQL |
 Github
+
+## Analysis
