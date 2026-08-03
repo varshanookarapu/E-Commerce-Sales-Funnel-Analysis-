@@ -196,7 +196,16 @@ WHERE event_date >= (SELECT MIN(event_date) FROM `proven-entropy-339205.User_Eve
 
 )
 
+-----
+
+
 SELECT *,ROUND(total_revenue/total_orders,2)  as avg_order_value, ROUND(total_revenue/total_purchasers,2) as total_revenue_per_purchaser FROM revenue_funnel
 ```
 <img width="1143" height="156" alt="image" src="https://github.com/user-attachments/assets/af054226-07af-408f-9624-c61b4becca72" />
-
+---
+What was the business problem?
+What data did you have?
+What tools did you use?
+What analysis did you perform?
+What insights did you find?
+What recommendations would you make?
